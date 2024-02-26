@@ -90,7 +90,7 @@ const convertTimeToMinutes = (sTime, splitSign = SPLIT_SIGN, radix = RADIX) => {
 };
 
 /**
- * Проверяет, возможна ли встреча или нет
+ * Проверяет, возможна ли встреча или нет.
  *
  * @param {string} dayBeginAt - время начала рабочего дня
  * @param {string} dayEndAt - время конца рабочего дня
