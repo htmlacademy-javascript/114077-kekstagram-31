@@ -1,4 +1,4 @@
-import { getRandomInteger, createRandomIdFromRangeGenerator } from '../../shared/utils';
+import { getRandomInteger, createRandomIdFromRangeGenerator } from '/js/shared/utils';
 import { createCommentMock } from '../comments';
 
 const PHOTO_ID_MIN = 1;

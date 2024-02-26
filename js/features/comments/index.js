@@ -1,4 +1,4 @@
-import { getRandomInteger, createConsistentIdGenerator, } from '../../shared/utils';
+import { getRandomInteger, createConsistentIdGenerator, } from '/js/shared/utils';
 
 const AVATAR_INDEX_MIN = 1;
 const AVATAR_INDEX_MAX = 6;
