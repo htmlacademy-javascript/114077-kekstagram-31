@@ -1,5 +1,5 @@
 import { getRandomInteger, createRandomIdFromRangeGenerator } from '/js/shared/utils';
-import { createCommentMock } from '../comments';
+import { createCommentMock } from '/js/entities/comment';
 
 const PHOTO_ID_MIN = 1;
 const PHOTO_ID_MAX = 25;
