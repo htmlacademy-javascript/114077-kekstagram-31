@@ -1,5 +1,3 @@
-import {openImageModal, closeImageModal, prepareData} from '../create-full-image';
-
 // <template id="picture">
 //   <a href="#" className="picture">
 //     <img className="picture__img" src="" width="182" height="182" alt="Случайная фотография">
@@ -10,6 +8,17 @@ import {openImageModal, closeImageModal, prepareData} from '../create-full-image
 //   </a>
 // </template>
 
+/**
+ * @param { PhotoItem } photoItem
+ *
+ * @param photoItem.id
+ * @param photoItem.url
+ * @param photoItem.description
+ * @param photoItem.likes
+ * @param photoItem.comments
+ *
+ * @returns { DocumentFragment }
+ */
 const createTileImage = ({ id, url, description, likes, comments }) => {
   const template = document.querySelector('#picture').content;
   const pictureEL = template.cloneNode(true);
@@ -28,13 +37,4 @@ const createTileImage = ({ id, url, description, likes, comments }) => {
   return pictureEL;
 };
 
-const onTileClick = (evt, photos) => {
-  evt.preventDefault();
-
-  const actualData = photos.find((photo) => evt.currentTarget.dataset.id === photo.id.toString());
-  prepareData(actualData);
-
-  openImageModal();
-};
-
-export { createTileImage, onTileClick };
+export { createTileImage };
