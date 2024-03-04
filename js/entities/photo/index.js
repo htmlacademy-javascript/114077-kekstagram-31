@@ -47,6 +47,22 @@ const generateRandomDescription = createDescription(RANDOM_DESCRIPTION);
 const generateLikes = () => getRandomInteger(LIKES_COUNT_MIN, LIKES_COUNT_MAX);
 const generateComments = () => Array.from({ length: getRandomInteger(COMMENTS_COUNT_MIN, COMMENTS_COUNT_MAX) }, createCommentMock);
 
+/**
+ *
+ * @typedef {Object} PhotoItem
+ *
+ * @property {number} id - идентификатор комментария
+ * @property {string} url - путь до фотографии
+ * @property {string} description - описание фотографии
+ * @property {number} likes - количество лайков
+ * @property {CommentItem[]} comments - массив комментариев
+ *
+ */
+/**
+ *
+ * @returns PhotoItem
+ *
+ */
 const createPhotoMock = () => ({
   id: generatePhotoId(),
   url: generatePhotoUrl(PHOTO_FOLDER, PHOTO_NAME_PREFIX, PHOTO_EXTENSION),

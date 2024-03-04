@@ -8,15 +8,27 @@
 //   </a>
 // </template>
 
-const createPreviewImage = ({ url, description, likes, comments }) => {
+/**
+ * @param { PhotoItem } photoItem
+ *
+ * @param photoItem.id
+ * @param photoItem.url
+ * @param photoItem.description
+ * @param photoItem.likes
+ * @param photoItem.comments
+ *
+ * @returns { DocumentFragment }
+ */
+const createTileImage = ({ id, url, description, likes, comments }) => {
   const template = document.querySelector('#picture').content;
   const pictureEL = template.cloneNode(true);
 
-  // const linkEl = pictureEL.querySelector('.picture');
+  const linkEl = pictureEL.querySelector('.picture');
   const imgEl = pictureEL.querySelector('.picture__img');
   const commentsEl = pictureEL.querySelector('.picture__comments');
   const likesEl = pictureEL.querySelector('.picture__likes');
 
+  linkEl.dataset.id = id;
   likesEl.textContent = likes;
   imgEl.src = url;
   imgEl.alt = description;
@@ -25,4 +37,4 @@ const createPreviewImage = ({ url, description, likes, comments }) => {
   return pictureEL;
 };
 
-export { createPreviewImage };
+export { createTileImage };

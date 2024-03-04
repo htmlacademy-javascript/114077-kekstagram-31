@@ -47,11 +47,26 @@ const generateAvatar = createRandomAvatarUrlFromRange(AVATAR_INDEX_MIN, AVATAR_I
 const generateMessage = createCommentMessage(0, 1);
 const generateName = createName();
 
+/**
+ *
+ * @typedef {Object} CommentItem
+ *
+ * @property {number} id - идентификатор комментария
+ * @property {string} name - имя автора комментария
+ * @property {string} avatar - адрес картинки аватарки автора комментария
+ * @property {string} message - текст комментария
+ *
+ */
+/**
+ *
+ * @returns CommentItem
+ *
+ */
 const createCommentMock = () => ({
   id: generateCommentId(),
+  name: generateName(NAMES),
   avatar: generateAvatar(AVATAR_FOLDER, AVATAR_NAME_PREFIX, AVATAR_EXTENSION), // img/avatar-{{случайное число от 1 до 6}}.svg
   message: generateMessage(MESSAGES), // вам необходимо взять одно или два случайных предложения из представленных в массиве MOCK_MESSAGES
-  name: generateName(NAMES),
 });
 
 export {
