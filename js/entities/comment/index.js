@@ -1,74 +1,56 @@
-import { getRandomInteger, createConsistentIdGenerator, } from '/js/shared/utils';
+// <li className="social__comment">
+//   <img
+//     className="social__picture"
+//     src="{{аватар}}"
+//     alt="{{имя комментатора}}"
+//     width="35" height="35">
+//     <p className="social__text">{{текст комментария}}</p>
+// </li>
 
-const AVATAR_INDEX_MIN = 1;
-const AVATAR_INDEX_MAX = 6;
+const createBaseElement = () => {
+  const li = document.createElement('li');
+  li.classList.add('social__comment');
 
-const AVATAR_FOLDER = 'img';
-const AVATAR_NAME_PREFIX = 'avatar-';
-const AVATAR_EXTENSION = 'svg';
-
-const NAMES = ['Ксения', 'Лев', 'Моника', 'Таисия', 'Сергей', 'Валерия', 'Фёдор', 'Дмитрий', 'Григорий', 'Михаил', 'Давид', 'Арина', 'Марта', 'Маргарита', 'Ярослав', 'Елена', 'Илья', 'Алиса', 'Андрей', 'Мария'];
-
-const MESSAGES = [
-  'Всё отлично!',
-  'В целом всё неплохо. Но не всё.',
-  'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
-  'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.',
-  'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
-  'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
-];
-
-const createRandomAvatarUrlFromRange = (min, max) => (folder = 'img', prefix = 'avatar-', extension = 'svg') => {
-  const name = `${prefix}${getRandomInteger(min, max)}`;
-  return `${folder}/${name}.${extension}`;
+  return li;
 };
 
-const createCommentMessage = (min, max) => (messages) => {
-  const limit = getRandomInteger(min, max);
+const createAvatarElement = (url, name) => {
+  const img = document.createElement('img');
 
-  const selectedMessages = [];
-  const messagesLimit = messages.length - 1;
+  img.classList.add('social__picture');
+  img.src = url;
+  img.alt = name;
 
-  for (let i = 0; i <= limit; i++) {
-    const message = messages[getRandomInteger(0, messagesLimit)];
-    selectedMessages.push(message);
-  }
-
-  return selectedMessages.join(' ');
+  return img;
 };
 
-const createName = (limit) => (names) => {
-  const namesLimit = limit || names.length - 1;
-  return names[getRandomInteger(0, namesLimit)];
-};
+const createMessageElement = (message) => {
+  const p = document.createElement('p');
 
-const generateCommentId = createConsistentIdGenerator();
-const generateAvatar = createRandomAvatarUrlFromRange(AVATAR_INDEX_MIN, AVATAR_INDEX_MAX);
-const generateMessage = createCommentMessage(0, 1);
-const generateName = createName();
+  p.classList.add('social__text');
+  p.textContent = message;
+
+  return p;
+};
 
 /**
+ * @param { CommentItem } commentItem
  *
- * @typedef {Object} CommentItem
+ * @param commentItem.name
+ * @param commentItem.avatar
+ * @param commentItem.message
  *
- * @property {number} id - идентификатор комментария
- * @property {string} name - имя автора комментария
- * @property {string} avatar - адрес картинки аватарки автора комментария
- * @property {string} message - текст комментария
- *
+ * @return { HTMLLIElement }
  */
-/**
- *
- * @returns CommentItem
- *
- */
-const createCommentMock = () => ({
-  id: generateCommentId(),
-  name: generateName(NAMES),
-  avatar: generateAvatar(AVATAR_FOLDER, AVATAR_NAME_PREFIX, AVATAR_EXTENSION), // img/avatar-{{случайное число от 1 до 6}}.svg
-  message: generateMessage(MESSAGES), // вам необходимо взять одно или два случайных предложения из представленных в массиве MOCK_MESSAGES
-});
+const createCommentElement = ({ name, avatar, message }) => {
+  const li = createBaseElement();
+  const img = createAvatarElement(avatar, name);
+  const p = createMessageElement(message);
 
-export {
-  createCommentMock
+  li.appendChild(img);
+  li.appendChild(p);
+
+  return li;
 };
+
+export { createCommentElement };

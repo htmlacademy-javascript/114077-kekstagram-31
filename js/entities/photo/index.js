@@ -1,76 +1,40 @@
-import { getRandomInteger, createRandomIdFromRangeGenerator } from '/js/shared/utils';
-import { createCommentMock } from '/js/entities/comment';
-
-const PHOTO_ID_MIN = 1;
-const PHOTO_ID_MAX = 25;
-
-const PHOTO_URL_INDEX_MIN = 1;
-const PHOTO_URL_INDEX_MAX = 25;
-
-const LIKES_COUNT_MIN = 15;
-const LIKES_COUNT_MAX = 200;
-
-const COMMENTS_COUNT_MIN = 0;
-const COMMENTS_COUNT_MAX = 30;
-
-const PHOTO_FOLDER = 'photos';
-const PHOTO_NAME_PREFIX = '';
-const PHOTO_EXTENSION = 'jpg';
-
-const RANDOM_DESCRIPTION = {
-  who: ['Человек', 'Кот', 'Собака', 'Лиса', 'Медведь', 'Птица', 'Ребёнок', 'Учитель', 'Друг', 'Герой'],
-  what: ['бегает', 'прыгает', 'плавает', 'летает', 'поёт', 'танцует', 'смеётся', 'учит', 'играет', 'готовит'],
-  how: ['быстро', 'медленно', 'легко', 'тяжело', 'весело', 'грустно', 'смешно', 'серьёзно', 'осторожно', 'беззаботно']
-};
-
-const createDescription = (descriptionDictionary) => () => {
-  const getDescriptionPart = (descriptionKey) => {
-    const max = descriptionDictionary[descriptionKey].length - 1;
-    return descriptionDictionary[descriptionKey][getRandomInteger(0, max)];
-  };
-
-  return Object.keys(descriptionDictionary).map(getDescriptionPart).join(' ');
-};
-
-const createRandomPhotoUrlFromRange = (min, max) => {
-  const getUniqIndex = createRandomIdFromRangeGenerator(min, max);
-
-  return (folder = 'photo', prefix = '', extension = 'jpg') => {
-    const name = `${prefix}${getUniqIndex()}`;
-    return `${folder}/${name}.${extension}`;
-  };
-};
-
-const generatePhotoId = createRandomIdFromRangeGenerator(PHOTO_ID_MIN, PHOTO_ID_MAX);
-const generatePhotoUrl = createRandomPhotoUrlFromRange(PHOTO_URL_INDEX_MIN, PHOTO_URL_INDEX_MAX);
-const generateRandomDescription = createDescription(RANDOM_DESCRIPTION);
-const generateLikes = () => getRandomInteger(LIKES_COUNT_MIN, LIKES_COUNT_MAX);
-const generateComments = () => Array.from({ length: getRandomInteger(COMMENTS_COUNT_MIN, COMMENTS_COUNT_MAX) }, createCommentMock);
+// <template id="picture">
+//   <a href="#" className="picture">
+//     <img className="picture__img" src="" width="182" height="182" alt="Случайная фотография">
+//       <p className="picture__info">
+//         <span className="picture__comments"></span>
+//         <span className="picture__likes"></span>
+//       </p>
+//   </a>
+// </template>
 
 /**
+ * @param { PhotoItem } photoItem
  *
- * @typedef {Object} PhotoItem
+ * @param photoItem.id
+ * @param photoItem.url
+ * @param photoItem.description
+ * @param photoItem.likes
+ * @param photoItem.comments
  *
- * @property {number} id - идентификатор комментария
- * @property {string} url - путь до фотографии
- * @property {string} description - описание фотографии
- * @property {number} likes - количество лайков
- * @property {CommentItem[]} comments - массив комментариев
- *
+ * @returns { DocumentFragment }
  */
-/**
- *
- * @returns PhotoItem
- *
- */
-const createPhotoMock = () => ({
-  id: generatePhotoId(),
-  url: generatePhotoUrl(PHOTO_FOLDER, PHOTO_NAME_PREFIX, PHOTO_EXTENSION),
-  description: generateRandomDescription(),
-  likes: generateLikes(),
-  comments: generateComments(),
-});
+const createTileImage = ({ id, url, description, likes, comments }) => {
+  const template = document.querySelector('#picture').content;
+  const pictureEL = template.cloneNode(true);
 
-export {
-  createPhotoMock
+  const linkEl = pictureEL.querySelector('.picture');
+  const imgEl = pictureEL.querySelector('.picture__img');
+  const commentsEl = pictureEL.querySelector('.picture__comments');
+  const likesEl = pictureEL.querySelector('.picture__likes');
+
+  linkEl.dataset.id = id;
+  likesEl.textContent = likes;
+  imgEl.src = url;
+  imgEl.alt = description;
+  commentsEl.textContent = comments.length;
+
+  return pictureEL;
 };
+
+export { createTileImage };
