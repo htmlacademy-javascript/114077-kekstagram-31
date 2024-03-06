@@ -27,6 +27,7 @@ function onDocumentKeydown(evt) {
   }
 }
 
+// TODO: переделать на хук - ?
 const initModalHandlers = () => {
   closeButton.addEventListener('click', (evt) => {
     evt.preventDefault();
