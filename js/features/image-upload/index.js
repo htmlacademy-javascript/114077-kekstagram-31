@@ -7,7 +7,7 @@ const inputFile = mainContainer.querySelector('.img-upload__input');
 
 const imgUploadOverlay = mainContainer.querySelector('.img-upload__overlay');
 const cancelButton = mainContainer.querySelector('.img-upload__cancel');
-const sendButton = mainContainer.querySelector('.text__description');
+const sendButton = mainContainer.querySelector('.img-upload__submit');
 
 const uploadForm = document.querySelector('.img-upload__form');
 const hashtagsInput = uploadForm.querySelector('.text__hashtags');
@@ -15,12 +15,17 @@ const commentsInput = uploadForm.querySelector('.text__description');
 
 const resetModalState = () => {
   inputFile.value = '';
+  hashtagsInput.value = '';
+  commentsInput.value = '';
 };
 
 const openModal = () => {
   document.body.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeydown);
   imgUploadOverlay.classList.remove('hidden');
+
+  pristine.validate();
+  sendButton.disabled = !pristine.validate();
 };
 
 const closeModal = () => {
