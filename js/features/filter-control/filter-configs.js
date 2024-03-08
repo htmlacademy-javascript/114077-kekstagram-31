@@ -20,7 +20,7 @@ const defaultSettings = {
       return parseFloat(value);
     },
   },
-}
+};
 
 const chrome = {
   inputName: 'chrome',
