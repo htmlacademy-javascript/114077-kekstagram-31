@@ -1,6 +1,7 @@
 import { isEnterKey, isEscapeKey } from '/js/shared/utils';
 import { pristine } from '/js/features/image-upload/validation/';
 import { resetPreviewImage } from '/js/features/scale-control';
+import { resetFilterSettings } from '/js/features/filter-control';
 
 const mainContainer = document.querySelector('.img-upload');
 
@@ -36,6 +37,7 @@ const closeModal = () => {
 
   resetModalState();
   resetPreviewImage();
+  resetFilterSettings();
 };
 
 function onDocumentKeydown(evt) {
