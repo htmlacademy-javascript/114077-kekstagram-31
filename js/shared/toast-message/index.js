@@ -1,5 +1,5 @@
-import { fillDocumentFragment } from '../fill-document-fragment';
-import {isEscapeKey} from '../utils';
+import { fillDocumentFragment } from '/js/shared/fill-document-fragment';
+import {isEscapeKey} from '/js/shared/utils';
 
 const TOAST_LIFETIME_MS = 5000;
 let timer;

@@ -1,6 +1,6 @@
-import { sendData } from '../../shared/api';
+import { sendData } from '/js/shared/api';
 import { isEnterKey, isEscapeKey } from '/js/shared/utils';
-import { showConfirmedToast } from '../../shared/toast-message';
+import { showConfirmedToast } from '/js/shared/toast-message';
 
 import { pristine } from '/js/features/image-upload/validation/';
 import { resetPreviewImage, disableScaleButtons, enableScaleButtons } from '/js/features/scale-control';

@@ -1,5 +1,5 @@
-import { getData } from './shared/api';
-import { showExpiredToast } from './shared/toast-message';
+import { getData } from '/js/shared/api';
+import { showExpiredToast } from '/js/shared/toast-message';
 
 import { initModalHandlers } from '/js/shared/modal-handlers';
 import { initUploadHandlers } from '/js/features/image-upload';
