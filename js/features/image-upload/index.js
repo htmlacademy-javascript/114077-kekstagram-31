@@ -1,7 +1,10 @@
+import { sendData } from '../../shared/api';
 import { isEnterKey, isEscapeKey } from '/js/shared/utils';
+import { showConfirmedToast } from '../../shared/toast-message';
+
 import { pristine } from '/js/features/image-upload/validation/';
-import { resetPreviewImage } from '/js/features/scale-control';
-import { resetFilterSettings } from '/js/features/filter-control';
+import { resetPreviewImage, disableScaleButtons, enableScaleButtons } from '/js/features/scale-control';
+import { resetFilterSettings, disableSlider, enableSlider } from '/js/features/filter-control';
 
 const mainContainer = document.querySelector('.img-upload');
 
@@ -19,6 +22,18 @@ const resetModalState = () => {
   inputFile.value = '';
   hashtagsInput.value = '';
   commentsInput.value = '';
+};
+
+const disableForm = () => {
+  sendButton.disabled = true;
+  hashtagsInput.disabled = true;
+  commentsInput.disabled = true;
+};
+
+const enableForm = () => {
+  sendButton.disabled = false;
+  hashtagsInput.disabled = false;
+  commentsInput.disabled = false;
 };
 
 const openModal = () => {
@@ -47,6 +62,39 @@ function onDocumentKeydown(evt) {
   }
 }
 
+const onSuccess = () => {
+  showConfirmedToast('success');
+  closeModal();
+};
+
+const onError = () => {
+  document.removeEventListener('keydown', onDocumentKeydown);
+  showConfirmedToast('error', () => document.addEventListener('keydown', onDocumentKeydown));
+};
+
+const onFinally = () => {
+  enableForm();
+  enableScaleButtons();
+  enableSlider();
+};
+
+const onSubmit = (evt) => {
+  evt.preventDefault();
+  const formData = new FormData(uploadForm);
+
+  disableForm();
+  disableScaleButtons();
+  disableSlider();
+
+  sendData(formData)
+    .then(onSuccess)
+    .catch(onError)
+    .finally(onFinally);
+};
+
+/**
+ *
+ */
 const initUploadHandlers = () => {
   inputFile.addEventListener('change', () => {
     openModal();
@@ -80,13 +128,7 @@ const initUploadHandlers = () => {
   hashtagsInput.addEventListener('blur', () => document.addEventListener('keydown', onDocumentKeydown));
   commentsInput.addEventListener('blur', () => document.addEventListener('keydown', onDocumentKeydown));
 
-  uploadForm.addEventListener('submit', (evt) => {
-    const isValid = pristine.validate();
-
-    if (!isValid) {
-      evt.preventDefault();
-    }
-  });
+  uploadForm.addEventListener('submit', onSubmit);
 };
 
 export { initUploadHandlers };

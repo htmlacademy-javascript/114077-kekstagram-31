@@ -1,5 +1,5 @@
 import { fillDocumentFragment } from '/js/shared/fill-document-fragment';
-import { createCommentElement } from '/js/entities/comment';
+import { createCommentElement } from '/js/entities/comments';
 
 const modalEl = document.querySelector('.big-picture');
 

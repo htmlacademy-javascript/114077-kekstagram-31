@@ -1,6 +1,6 @@
+import { createPreviewImage } from '/js/entities/previews';
 import { fillDocumentFragment } from '/js/shared/fill-document-fragment';
 import { openImageModal } from '/js/shared/modal-handlers';
-import { createTileImage } from '/js/entities/photo';
 import { setModalImage } from '/js/features/set-modal-image';
 import { prepareCommentRender } from '/js/features/render-comments-section';
 
@@ -30,11 +30,11 @@ const imageTilesHandlers = (photos) => {
  * @param {PhotoItem[]} photos - массив данных для отрисовки фотографий
  *
  */
-const renderImageTiles = (photos) => {
-  const documentFragment = fillDocumentFragment(photos.map(createTileImage));
+const renderPreviewImages = (photos) => {
+  const documentFragment = fillDocumentFragment(photos.map(createPreviewImage));
   picturesPlace.append(documentFragment);
 
   imageTilesHandlers(photos);
 };
 
-export { renderImageTiles };
+export { renderPreviewImages };
