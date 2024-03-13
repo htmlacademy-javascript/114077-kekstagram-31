@@ -34,6 +34,17 @@ const createMessageElement = (message) => {
 };
 
 /**
+ *
+ * @typedef { Object } CommentItem
+ *
+ * @property {number} id - идентификатор комментария
+ * @property {string} name - имя автора комментария
+ * @property {string} avatar - адрес картинки аватарки автора комментария
+ * @property {string} message - текст комментария
+ *
+ */
+
+/**
  * @param { CommentItem } commentItem
  *
  * @param commentItem.name

@@ -35,6 +35,22 @@ const resetFilterSettings = () => {
   previewImage.style.filter = 'none';
 };
 
+const disableSlider = () => {
+  // sliderContainer.noUiSlider.disable(); // доступно только с 15.7.0 версии
+
+  filterInputs.forEach((input) => {
+    input.setAttribute('disabled', 'true');
+  });
+};
+
+const enableSlider = () => {
+  // sliderContainer.noUiSlider.enable(); // доступно только с 15.7.0 версии
+
+  filterInputs.forEach((input) => {
+    input.removeAttribute('disabled');
+  });
+};
+
 const initFilterHandlers = () => {
   filterInputs.forEach((filterInput) => {
     filterInput.addEventListener('change', (evt) => {
@@ -52,4 +68,9 @@ const initFilterHandlers = () => {
   });
 };
 
-export { initFilterHandlers, resetFilterSettings };
+export {
+  initFilterHandlers,
+  resetFilterSettings,
+  disableSlider,
+  enableSlider,
+};

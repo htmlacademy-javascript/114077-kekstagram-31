@@ -1,16 +1,18 @@
-import { createPhotoMock } from '/js/entities/photo/model';
+import { getData } from '/js/shared/api';
+import { showExpiredToast } from '/js/shared/toast-message';
+
 import { initModalHandlers } from '/js/shared/modal-handlers';
 import { initUploadHandlers } from '/js/features/image-upload';
-import { renderImageTiles } from '/js/features/render-image-tiles';
 import { initScaleHandlers } from '/js/features/scale-control';
 import { initFilterHandlers } from '/js/features/filter-control';
+import { renderPreviewImages } from '/js/features/render-preview-images';
 
-const PHOTOS_COUNT_MAX = 25;
-const photos = Array.from({ length: PHOTOS_COUNT_MAX }, createPhotoMock);
 
 initModalHandlers();
 initUploadHandlers();
 initScaleHandlers();
 initFilterHandlers();
 
-renderImageTiles(photos);
+getData()
+  .then((data) => renderPreviewImages(data))
+  .catch(() => showExpiredToast('data-error'));

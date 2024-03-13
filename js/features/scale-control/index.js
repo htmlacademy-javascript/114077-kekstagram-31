@@ -22,6 +22,16 @@ const checkButtonsAvailable = () => {
   scaleDownButton.disabled = currentScaleValue <= MIN_SCALE_VALUE;
 };
 
+const disableScaleButtons = () => {
+  scaleUpButton.disabled = true;
+  scaleDownButton.disabled = true;
+};
+
+const enableScaleButtons = () => {
+  scaleUpButton.disabled = false;
+  scaleDownButton.disabled = false;
+};
+
 const renderScaleValue = (value) => {
   scaleResultInput.value = `${value}%`;
 };
@@ -66,4 +76,9 @@ const initScaleHandlers = () => {
   });
 };
 
-export { initScaleHandlers, resetPreviewImage };
+export {
+  initScaleHandlers,
+  resetPreviewImage,
+  disableScaleButtons,
+  enableScaleButtons
+};

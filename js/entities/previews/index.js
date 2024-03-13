@@ -9,6 +9,18 @@
 // </template>
 
 /**
+ *
+ * @typedef { Object } PhotoItem
+ *
+ * @property {number} id - идентификатор комментария
+ * @property {string} url - путь до фотографии
+ * @property {string} description - описание фотографии
+ * @property {number} likes - количество лайков
+ * @property {CommentItem[]} comments - массив комментариев
+ *
+ */
+
+/**
  * @param { PhotoItem } photoItem
  *
  * @param photoItem.id
@@ -19,7 +31,7 @@
  *
  * @returns { DocumentFragment }
  */
-const createTileImage = ({ id, url, description, likes, comments }) => {
+const createPreviewImage = ({ id, url, description, likes, comments }) => {
   const template = document.querySelector('#picture').content;
   const pictureEL = template.cloneNode(true);
 
@@ -37,4 +49,4 @@ const createTileImage = ({ id, url, description, likes, comments }) => {
   return pictureEL;
 };
 
-export { createTileImage };
+export { createPreviewImage };
