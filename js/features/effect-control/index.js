@@ -1,4 +1,4 @@
-import { chrome, sepia, marvin, phobos, heat } from '/js/features/filter-control/filter-configs';
+import { chrome, sepia, marvin, phobos, heat } from '/js/features/effect-control/slider-configs';
 
 const effectLevelContainer = document.querySelector('.img-upload__effect-level');
 
@@ -8,9 +8,9 @@ const effectLevelInput = effectLevelContainer.querySelector('.effect-level__valu
 const previewImageContainer = document.querySelector('.img-upload__preview');
 const previewImage = previewImageContainer.querySelector('img');
 
-const filterInputs = document.querySelectorAll('.effects__radio');
+const effectInputs = document.querySelectorAll('.effects__radio');
 
-const filterConfigs = [chrome, sepia, marvin, phobos, heat];
+const effectConfigs = [chrome, sepia, marvin, phobos, heat];
 
 // При изменении пишем данные в скрытое поле
 
@@ -27,8 +27,8 @@ const recreateSlider = (config) => {
   });
 };
 
-const resetFilterSettings = () => {
-  const original = Array.from(filterInputs).find((filterInput) => filterInput.value === 'none');
+const resetEffectSettings = () => {
+  const original = Array.from(effectInputs).find((filterInput) => filterInput.value === 'none');
   original.checked = true;
 
   effectLevelContainer.classList.add('hidden');
@@ -38,7 +38,7 @@ const resetFilterSettings = () => {
 const disableSlider = () => {
   // sliderContainer.noUiSlider.disable(); // доступно только с 15.7.0 версии
 
-  filterInputs.forEach((input) => {
+  effectInputs.forEach((input) => {
     input.setAttribute('disabled', 'true');
   });
 };
@@ -46,16 +46,16 @@ const disableSlider = () => {
 const enableSlider = () => {
   // sliderContainer.noUiSlider.enable(); // доступно только с 15.7.0 версии
 
-  filterInputs.forEach((input) => {
+  effectInputs.forEach((input) => {
     input.removeAttribute('disabled');
   });
 };
 
-const initFilterHandlers = () => {
-  filterInputs.forEach((filterInput) => {
+const initEffectHandlers = () => {
+  effectInputs.forEach((filterInput) => {
     filterInput.addEventListener('change', (evt) => {
       evt.preventDefault();
-      const currentFilterConfig = Object.assign({}, filterConfigs.find((filter) => filter.inputName === evt.target.value));
+      const currentFilterConfig = Object.assign({}, effectConfigs.find((filter) => filter.inputName === evt.target.value));
 
       if (evt.target.value === 'none' || !currentFilterConfig) {
         effectLevelContainer.classList.add('hidden');
@@ -69,8 +69,8 @@ const initFilterHandlers = () => {
 };
 
 export {
-  initFilterHandlers,
-  resetFilterSettings,
+  initEffectHandlers,
+  resetEffectSettings,
   disableSlider,
   enableSlider,
 };
