@@ -5,7 +5,8 @@ import { initModalHandlers } from '/js/shared/modal-handlers';
 import { initUploadHandlers } from '/js/features/image-upload';
 import { initScaleHandlers } from '/js/features/scale-control';
 import { initEffectHandlers } from '/js/features/effect-control';
-import { renderPreviewImages } from '/js/features/render-preview-images';
+import { renderPreviewPictures, savePicturesInStore } from '/js/features/render-preview-pictures';
+import { showFilters } from './features/previews-filter';
 
 
 initModalHandlers();
@@ -14,5 +15,9 @@ initScaleHandlers();
 initEffectHandlers();
 
 getData()
-  .then((data) => renderPreviewImages(data))
+  .then((data) => {
+    renderPreviewPictures(data);
+    savePicturesInStore(data);
+  })
+  .then(() => showFilters())
   .catch(() => showExpiredToast('data-error'));
