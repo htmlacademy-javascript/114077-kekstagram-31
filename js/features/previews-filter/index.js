@@ -1,4 +1,4 @@
-import { renderPreviewPictures, getPicturesFromStore } from '../render-preview-pictures';
+import { renderPreviewPictures, getPicturesFromStore } from '/js/features/render-preview-pictures';
 
 const filterContainer = document.querySelector('.img-filters');
 const filterForm = filterContainer.querySelector('.img-filters__form');
@@ -6,6 +6,9 @@ const filterButtons = filterForm.querySelectorAll('.img-filters__button');
 
 const BUTTON_ACTIVE_CLASS = 'img-filters__button--active';
 const RANDOM_COUNT = 10;
+const DEBOUNCE_DELAY = 500;
+
+let timer;
 
 const FilterButtonIds = {
   default: 'filter-default',
@@ -14,7 +17,6 @@ const FilterButtonIds = {
 };
 
 const showFilters = () => {
-  console.log('SHOW');
   filterContainer.classList.remove('img-filters--inactive');
 };
 
@@ -30,32 +32,39 @@ const getRandomPictures = (pictures, count) => pictures.sort(() => Math.random()
 const onButtonClick = (button) => (evt) => {
   evt.preventDefault();
   setActiveButton(evt.currentTarget);
+  clearTimeout(timer);
 
   const pictures = getPicturesFromStore();
 
   switch (button.id) {
     case FilterButtonIds.random:
-      renderPreviewPictures(getRandomPictures(pictures.slice(), RANDOM_COUNT));
+      timer = setTimeout(() => {
+        renderPreviewPictures(getRandomPictures(pictures.slice(), RANDOM_COUNT));
+      }, DEBOUNCE_DELAY);
       break;
     case FilterButtonIds.discussed:
-      renderPreviewPictures(getSortedByCommentsDESC(pictures.slice()));
+      timer = setTimeout(() => {
+        renderPreviewPictures(getSortedByCommentsDESC(pictures.slice()));
+      }, DEBOUNCE_DELAY);
       break;
     case FilterButtonIds.default:
-      renderPreviewPictures(pictures);
+      timer = setTimeout(() => {
+        renderPreviewPictures(pictures);
+      }, DEBOUNCE_DELAY);
       break;
     default:
       throw Error('Проверьте правильность идентификатора фильтра');
   }
 };
 
+const initPreviewFilter = () => {
+  showFilters();
 
+  filterForm.addEventListener('submit', (evt) => evt.preventDefault());
 
-filterForm.addEventListener('submit', (evt) => evt.preventDefault());
-
-filterButtons.forEach((button) => {
-  button.addEventListener('click', onButtonClick(button));
-});
-
-export {
-  showFilters,
+  filterButtons.forEach((button) => {
+    button.addEventListener('click', onButtonClick(button));
+  });
 };
+
+export { initPreviewFilter };

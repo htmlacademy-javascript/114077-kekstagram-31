@@ -6,7 +6,7 @@ import { initUploadHandlers } from '/js/features/image-upload';
 import { initScaleHandlers } from '/js/features/scale-control';
 import { initEffectHandlers } from '/js/features/effect-control';
 import { renderPreviewPictures, savePicturesInStore } from '/js/features/render-preview-pictures';
-import { showFilters } from './features/previews-filter';
+import { initPreviewFilter } from '/js/features/previews-filter';
 
 
 initModalHandlers();
@@ -19,5 +19,5 @@ getData()
     renderPreviewPictures(data);
     savePicturesInStore(data);
   })
-  .then(() => showFilters())
+  .then(() => initPreviewFilter())
   .catch(() => showExpiredToast('data-error'));
