@@ -4,7 +4,7 @@ import { showConfirmedToast } from '/js/shared/toast-message';
 
 import { pristine } from '/js/features/image-upload/validation/';
 import { resetPreviewImage, disableScaleButtons, enableScaleButtons } from '/js/features/scale-control';
-import { resetFilterSettings, disableSlider, enableSlider } from '/js/features/filter-control';
+import { resetEffectSettings, disableSlider, enableSlider } from '/js/features/effect-control';
 
 const mainContainer = document.querySelector('.img-upload');
 
@@ -52,7 +52,7 @@ const closeModal = () => {
 
   resetModalState();
   resetPreviewImage();
-  resetFilterSettings();
+  resetEffectSettings();
 };
 
 function onDocumentKeydown(evt) {

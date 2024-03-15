@@ -10,7 +10,7 @@
 
 /**
  *
- * @typedef { Object } PhotoItem
+ * @typedef { Object } PictureItem
  *
  * @property {number} id - идентификатор комментария
  * @property {string} url - путь до фотографии
@@ -21,7 +21,7 @@
  */
 
 /**
- * @param { PhotoItem } photoItem
+ * @param { PictureItem } photoItem
  *
  * @param photoItem.id
  * @param photoItem.url
@@ -31,7 +31,7 @@
  *
  * @returns { DocumentFragment }
  */
-const createPreviewImage = ({ id, url, description, likes, comments }) => {
+const createPreviewPicture = ({ id, url, description, likes, comments }) => {
   const template = document.querySelector('#picture').content;
   const pictureEL = template.cloneNode(true);
 
@@ -49,4 +49,4 @@ const createPreviewImage = ({ id, url, description, likes, comments }) => {
   return pictureEL;
 };
 
-export { createPreviewImage };
+export { createPreviewPicture };

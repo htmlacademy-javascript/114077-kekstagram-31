@@ -4,15 +4,20 @@ import { showExpiredToast } from '/js/shared/toast-message';
 import { initModalHandlers } from '/js/shared/modal-handlers';
 import { initUploadHandlers } from '/js/features/image-upload';
 import { initScaleHandlers } from '/js/features/scale-control';
-import { initFilterHandlers } from '/js/features/filter-control';
-import { renderPreviewImages } from '/js/features/render-preview-images';
+import { initEffectHandlers } from '/js/features/effect-control';
+import { renderPreviewPictures, savePicturesInStore } from '/js/features/render-preview-pictures';
+import { initPreviewFilter } from '/js/features/previews-filter';
 
 
 initModalHandlers();
 initUploadHandlers();
 initScaleHandlers();
-initFilterHandlers();
+initEffectHandlers();
 
 getData()
-  .then((data) => renderPreviewImages(data))
+  .then((data) => {
+    renderPreviewPictures(data);
+    savePicturesInStore(data);
+  })
+  .then(() => initPreviewFilter())
   .catch(() => showExpiredToast('data-error'));

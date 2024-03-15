@@ -4,14 +4,14 @@ import { isEnterKey, isEscapeKey } from '/js/shared/utils';
 const modalEl = document.querySelector('.big-picture');
 const closeButton = document.querySelector('#picture-cancel');
 
-const openImageModal = () => {
+const openPictureModal = () => {
   document.body.classList.add('modal-open');
   modalEl.classList.remove('hidden');
 
   document.addEventListener('keydown', onDocumentKeydown);
 };
 
-const closeImageModal = () => {
+const closePictureModal = () => {
   resetCommentsState();
 
   document.body.classList.remove('modal-open');
@@ -23,7 +23,7 @@ const closeImageModal = () => {
 function onDocumentKeydown(evt) {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
-    closeImageModal();
+    closePictureModal();
   }
 }
 
@@ -31,15 +31,15 @@ function onDocumentKeydown(evt) {
 const initModalHandlers = () => {
   closeButton.addEventListener('click', (evt) => {
     evt.preventDefault();
-    closeImageModal();
+    closePictureModal();
   });
 
   closeButton.addEventListener('keypress', (evt) => {
     if (isEnterKey(evt)) {
       evt.preventDefault();
-      closeImageModal();
+      closePictureModal();
     }
   });
 };
 
-export { initModalHandlers, openImageModal };
+export { initModalHandlers, openPictureModal };
