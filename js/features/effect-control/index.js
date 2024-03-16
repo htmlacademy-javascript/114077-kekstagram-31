@@ -52,6 +52,8 @@ const enableSlider = () => {
 };
 
 const initEffectHandlers = () => {
+  resetEffectSettings();
+
   effectInputs.forEach((filterInput) => {
     filterInput.addEventListener('change', (evt) => {
       evt.preventDefault();
