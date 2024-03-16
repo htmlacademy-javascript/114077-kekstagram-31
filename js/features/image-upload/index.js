@@ -99,7 +99,7 @@ const onSubmit = (evt) => {
 const setLoadedImage = (file) => {
   const blodUrl = URL.createObjectURL(file);
 
-  imageElement.src = blodUrl
+  imageElement.src = blodUrl;
   document.querySelectorAll('.effects__preview')
     .forEach((effectPreviewElement) => {
       effectPreviewElement.style.backgroundImage = `url(${blodUrl})`;
