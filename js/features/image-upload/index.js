@@ -44,9 +44,6 @@ const openModal = () => {
   document.body.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeydown);
   imgUploadOverlay.classList.remove('hidden');
-
-  pristine.validate();
-  sendButton.disabled = !pristine.validate();
 };
 
 const closeModal = () => {
@@ -57,6 +54,8 @@ const closeModal = () => {
   resetModalState();
   resetPreviewImage();
   resetEffectSettings();
+
+  pristine.reset();
 };
 
 function onDocumentKeydown(evt) {

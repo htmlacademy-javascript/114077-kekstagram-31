@@ -20,6 +20,7 @@ const closePictureModal = () => {
   document.removeEventListener('keydown', onDocumentKeydown);
 };
 
+
 function onDocumentKeydown(evt) {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
