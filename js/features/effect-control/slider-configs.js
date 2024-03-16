@@ -8,7 +8,6 @@
 const defaultSettings = {
   animate: false,
   connect: 'lower',
-  start: 0,
   format: {
     to: function (value) {
       if (Number.isInteger(value)) {
@@ -25,6 +24,7 @@ const defaultSettings = {
 const chrome = {
   inputName: 'chrome',
   sliderConfig: Object.assign({
+    start: 1,
     range: {
       min: 0,
       max: 1,
@@ -39,6 +39,7 @@ const chrome = {
 const sepia = {
   inputName: 'sepia',
   sliderConfig: Object.assign({
+    start: 1,
     range: {
       min: 0,
       max: 1,
@@ -53,6 +54,7 @@ const sepia = {
 const marvin = {
   inputName: 'marvin',
   sliderConfig: Object.assign({
+    start: 100,
     range: {
       min: 0,
       max: 100,
@@ -67,6 +69,7 @@ const marvin = {
 const phobos = {
   inputName: 'phobos',
   sliderConfig: Object.assign({
+    start: 3,
     range: {
       min: 0,
       max: 3,
@@ -81,7 +84,7 @@ const phobos = {
 const heat = {
   inputName: 'heat',
   sliderConfig: Object.assign({
-    start: 1,
+    start: 3,
     range: {
       min: 1,
       max: 3,

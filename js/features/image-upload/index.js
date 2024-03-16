@@ -9,6 +9,8 @@ import { resetEffectSettings, disableSlider, enableSlider } from '/js/features/e
 const mainContainer = document.querySelector('.img-upload');
 
 const inputFile = mainContainer.querySelector('.img-upload__input');
+const previewImageContainer = mainContainer.querySelector('.img-upload__preview');
+const imageElement = previewImageContainer.querySelector('img');
 
 const imgUploadOverlay = mainContainer.querySelector('.img-upload__overlay');
 const cancelButton = mainContainer.querySelector('.img-upload__cancel');
@@ -17,6 +19,8 @@ const sendButton = mainContainer.querySelector('.img-upload__submit');
 const uploadForm = document.querySelector('.img-upload__form');
 const hashtagsInput = uploadForm.querySelector('.text__hashtags');
 const commentsInput = uploadForm.querySelector('.text__description');
+
+const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 
 const resetModalState = () => {
   inputFile.value = '';
@@ -40,9 +44,6 @@ const openModal = () => {
   document.body.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeydown);
   imgUploadOverlay.classList.remove('hidden');
-
-  pristine.validate();
-  sendButton.disabled = !pristine.validate();
 };
 
 const closeModal = () => {
@@ -53,6 +54,8 @@ const closeModal = () => {
   resetModalState();
   resetPreviewImage();
   resetEffectSettings();
+
+  pristine.reset();
 };
 
 function onDocumentKeydown(evt) {
@@ -92,12 +95,31 @@ const onSubmit = (evt) => {
     .finally(onFinally);
 };
 
+const setLoadedImage = (file) => {
+  const blodUrl = URL.createObjectURL(file);
+
+  imageElement.src = blodUrl;
+  document.querySelectorAll('.effects__preview')
+    .forEach((effectPreviewElement) => {
+      effectPreviewElement.style.backgroundImage = `url(${blodUrl})`;
+    });
+};
+
 /**
  *
  */
 const initUploadHandlers = () => {
   inputFile.addEventListener('change', () => {
-    openModal();
+    const file = inputFile.files[0];
+    const fileName = file.name.toLowerCase();
+    const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
+
+    if (matches) {
+      setLoadedImage(file);
+      openModal();
+    } else {
+      showConfirmedToast('error', closeModal);
+    }
   });
 
   cancelButton.addEventListener('click', (evt) => {
