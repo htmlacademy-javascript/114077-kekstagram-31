@@ -35,14 +35,10 @@ const isHashtagsValid = (value) => {
   return !(Object.keys(errorMessages).some((type) => errorMessages[type].status));
 };
 
-const hashtagsErrorMessage = () => {
-  const joinedError = Object.keys(errorMessages)
-    .filter((type) => errorMessages[type].status)
-    .map((type) => errorMessages[type].message)
-    .join(JOIN_ERROR_SIGN);
-
-  return joinedError;
-};
+const hashtagsErrorMessage = () => Object.keys(errorMessages)
+  .filter((type) => errorMessages[type].status)
+  .map((type) => errorMessages[type].message)
+  .join(JOIN_ERROR_SIGN);
 
 export {
   isHashtagsValid,
