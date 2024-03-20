@@ -12,6 +12,7 @@ const image = previewImageContainer.querySelector('img');
 const DEFAULT_SCALE_VALUE = 100;
 const MIN_SCALE_VALUE = 25;
 const MAX_SCALE_VALUE = 100;
+const SCALE_TRANSFORM_DIVIDER = 100;
 
 const SCALE_STEP = 25;
 
@@ -37,7 +38,7 @@ const renderScaleValue = (value) => {
 };
 
 const scalePreviewImage = (value) => {
-  image.style.transform = `scale(${value / 100})`;
+  image.style.transform = `scale(${value / SCALE_TRANSFORM_DIVIDER})`;
 };
 
 const resetPreviewImage = () => {
